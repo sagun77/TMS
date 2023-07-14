@@ -6,7 +6,6 @@ import io.dev.Tms.dto.UserDTO;
 import io.dev.Tms.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +17,7 @@ import java.net.URI;
 
 import static java.time.LocalDateTime.now;
 import static java.util.Map.of;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/user")
@@ -33,8 +33,8 @@ public class UserResource {
                         .timeStamp(now().toString())
                         .data(of("user",userDTO))
                         .message("User created")
-                        .status(HttpStatus.CREATED)
-                        .statusCode(HttpStatus.CREATED.value())
+                        .status(CREATED)
+                        .statusCode(CREATED.value())
                         .build());
 
 

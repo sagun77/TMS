@@ -40,12 +40,12 @@ public class UserRepositoryImpl implements UserRepository<User> {
     @Override
     public User create(User user) {
         //check the email is unique
-        if(getEmailCount(user.getEmail().trim().toLowerCase())> 0) throw new ApiException("Email already in use. Please use a different email and try again. ");
+        if(getEmailCount(user.getEmail().trim().toLowerCase()) > 0) throw new ApiException("Email already in use. Please use a different email and try again. ");
         //save new user
         try{
             KeyHolder holder =new GeneratedKeyHolder();
-            SqlParameterSource parameter = getSqlParameterSource(user);
-            jdbc.update(INSERT_USER_QUERY, parameter , holder);
+            SqlParameterSource parameters = getSqlParameterSource(user);
+            jdbc.update(INSERT_USER_QUERY, parameters, holder);
             user.setId(requireNonNull(holder.getKey()).longValue());
             //add role to the user
             roleRepository.addRoleToUser(user.getId(),ROLE_USER.name());
